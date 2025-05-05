@@ -1,21 +1,32 @@
 # RL-practice
 
-
-This repository documents my journey of studying reinforcement learning (RL) while serving in the military. Due to many limitations including available software and security issues, I use solely Google Collaboratory as the platform and Python as the language. I use PyTorch and gymnasium as libraries for the model and game environment, respectively.
+This repository documents my journey of studying reinforcement learning (RL) while serving in the military. Due to many limitations including available software and security issues, I use solely Google Collaboratory as the platform and Python as the language. I use PyTorch and Gymnasium as libraries for the model and game environment, respectively.
 
 ---
 
 ## Goals
 
-The primary goal of this project is to gain in-depth knowledge of RL by implementing various algorithms from scratch, debugging through trial and error, and adding skills to enhance the performances. 
-The secondary goal is to provide a simple, yet intuitive path to study RL from scratch for any beginners such as me, and sharing & maintaining the insights that I have gained during the project. 
-The last goal is to motivate myself by recording the progress of the study. I am mainly using the after dark times from 22:00-24:00 and it is often tough to devote myself into the study after a fatiguing day of work. However, by keeping the record and being able to look back at the progress I made, it will help me take the steady steps to mastering RL.
+The primary goal of this project is to gain in-depth knowledge of RL by implementing various algorithms from scratch, debugging through trial and error, and adding skills to enhance the performances.  
+The secondary goal is to provide a simple, yet intuitive path to study RL from scratch for any beginners like me, and to share & maintain the insights I have gained during the project.  
+The last goal is to motivate myself by recording the progress of my study. I am mainly using the late-night hours from 22:00–24:00, and it is often tough to devote myself to studying after a fatiguing day of work. However, by keeping records and being able to look back at the progress I made, it helps me take steady steps toward mastering RL.
+
+---
+
+## Algorithms Covered
+
+- Q-Learning (Tabular)
+- SARSA
+- DQN
+- Double DQN
+- Dueling DQN
+- A2C (Monte Carlo and n-step variants)
+- Generalized Advantage Estimation (GAE)
 
 ---
 
 ## References
 
-For the fundamental theory, I mainly referenced Berkeley's CS 285 lectures by Professor Sergey Levine, and for implementing the codes, I gained help from multiple sources including github repos, gen AI, Stack Overflow, etc.
+For the fundamental theory, I mainly referenced Berkeley's CS 285 lectures by Professor Sergey Levine. For implementing the code, I gained help from multiple sources including GitHub repos, generative AI, Stack Overflow, etc.
 
 ---
 
@@ -27,21 +38,20 @@ For the fundamental theory, I mainly referenced Berkeley's CS 285 lectures by Pr
 
 | **Apr 14, 2025** | `sarsa_qlearn_comparison.ipynb`  ✅    | Implemented SARSA and Q-learning, the most fundamental on-policy and off-policy algorithms. |
 
-| **Apr 15, 2025** | `DQN_cartpole.ipynb`  ✅               | Implemented DQN for cartpole, first time using MLPs for training. Had to refresh basic MLP knowledge/syntax. Understanding how to 
- use MLPs to predict certain functions and how to train it. In the DQN, it predicts the Q value from current state, action and compares it with reward + gamma * max(Q(next_state)). |
- 
-| **Apr 15, 2025** | `DDQN_cartpole.ipynb`  ✅              | Added a MLP to the DQN to implement DDQN. DQN overestimates the general values of Q function since it takes the max value of the Q vector. Therefore, DDQN adds another MLP Q' that estimates Q. The predicted Q value is estimated using Q'. The new target value is calculated as reward + gamma * Q(next_state, argmax(Q'(next_state))) which doesn't take the max value of the Q estimates. This prevents overestimating the Q value. Empirically found better results compared to the DQN. |
+| **Apr 15, 2025** | `DQN_cartpole.ipynb`  ✅               | Implemented DQN for CartPole, first time using MLPs for training. Had to refresh basic MLP knowledge/syntax. Learned how to use MLPs to predict certain functions and how to train them. In the DQN, it predicts the Q value from the current state and action and compares it with reward + gamma * max(Q(next_state)). |
 
-| **Apr 15, 2025** | `Dueling_DQN_cartpole.ipynb`   ✅      | Implemented Dueling DQN which inherits DDQN's structure but adds an advantage stream. The Q vector is calculated as value + advantage - advantage.mean() while the value and advantage is estimated through distinct streams. This separates the benefit of being in a good state and the benefit of taking a good action. In many real life situations, it's the state that maters, not the action. In these cases, the Dueling DQN's network can just flatten the advantage and learn the value, which is a function of the state only. |
+| **Apr 15, 2025** | `DDQN_cartpole.ipynb`  ✅              | Added an MLP to the DQN to implement DDQN. DQN overestimates the general values of the Q function since it takes the max value of the Q vector. Therefore, DDQN adds another MLP Q' that estimates Q. The predicted Q value is estimated using Q'. The new target value is calculated as reward + gamma * Q(next_state, argmax(Q'(next_state))), which doesn't take the max value directly. This prevents overestimation of the Q value. Empirically found better results compared to DQN. |
 
-| **Apr 16, 2025** | `A2C_bipedal.ipynb`                    | First try implementing Monte Carlo A2C. Tried it on Bipedal game to experiment a continuous game. A2C is an algorithm that has two seperate players, the Actor and the Critic. The critic's goal is to estimate the best value, similar to the Deep Q networs but caclulating the value function instead. The actor's goal is to optimize the policy function(a function that returns a probability distribution of actions in a given state). The basic A2C computes advantage by subtracting estimated value from gamma decayed reward. Then, the policy updates by increasing the probability of the selected actions if the advantage is positive, and vice-versa otherwise. The critic updates to minimize the MSE(advantage, 0). Couldn't finish debugging the code. |
-| **Apr 18, 2025** | `A2C_bipedal.ipynb`                    | Switched to n-step A2C(aka. Vanilla A2C). n-step A2C is developed to update more frequently than REINFORCE which has to wait a whole episode to end. n-step A2C computes and stores the advantages, log probs, and values for n steps (or untii the trajectory is done), and refreshes them after updating the actor and critic. The model wasn't getting trained at all. Printed out multiple statistics such as values, returns, entropies for debugging. Found out gradient was to big and applied gradient clipping. Also added normalization layers. Couldn't get it working. |
-| **Apr 19, 2025** | `A2C_bipedal.ipynb`                    | Tried using RL Baselines3 Zoo's hyperparameters and implemented Generalized Advantage Estimate(GAE). Still wouldn't work.  |
-| **Apr 20, 2025** | `A2C_cartpole.ipynb`, 'RL_A2C.ipynb'   | Came back to cartpole to try implementing n-step A2C in a simpler environment. Downloaded the following Jupyter Notebook file and successed in training (URL: https://github.com/ayeenp/deep-rl-a2c-cartpole/blob/main/RL_A2C.ipynb). Made it sure that the structure of MLP and hyperparameters are not the problem.  |
-| **Apr 24 - May 1, 2025** | Vacation!! | Visited Tokyo to meet up with T@B friends, came back to Seoul and celebrated my brother's birthday.  |
-| **May 3, 2025** | `A2C_cartpole.ipynb`, 'RL_A2C.ipynb'   | Thought n-step was complicating the problem and started from the beginning by implementing Monte Carlo A2C. Finally got it to work. Then, tried n-step A2C again. Using a bigger n than max_step makes n-step A2C equal to Monte Carlo A2C. However, it would not train correctly when using the n-step methods instead. Found the bug which was not multiplying (1 - done) to the bootstrapped value. After fixing this, got both n-step and Monte Carlo A2C working.  |
+| **Apr 15, 2025** | `Dueling_DQN_cartpole.ipynb`   ✅      | Implemented Dueling DQN which inherits DDQN's structure but adds an advantage stream. The Q vector is calculated as value + advantage - advantage.mean(), while the value and advantage are estimated through distinct streams. This separates the benefit of being in a good state from the benefit of taking a good action. In many real-life situations, it's the state that matters, not the action. In these cases, Dueling DQN's network can just flatten the advantage and learn the value, which is a function of the state only. |
 
+| **Apr 16, 2025** | `A2C_bipedal.ipynb`                    | First try implementing Monte Carlo A2C. Tried it on BipedalWalker to experiment with a continuous environment. A2C is an algorithm that has two separate players, the Actor and the Critic. The Critic's goal is to estimate the value function, similar to Deep Q Networks, but estimating value instead. The Actor's goal is to optimize the policy function (a function that returns a probability distribution over actions in a given state). The basic A2C computes advantage by subtracting the estimated value from gamma-discounted reward. Then, the policy updates by increasing the probability of the selected actions if the advantage is positive, and vice versa otherwise. The Critic updates to minimize MSE(advantage, 0). Couldn't finish debugging the code. |
 
+| **Apr 18, 2025** | `A2C_bipedal.ipynb`                    | Switched to n-step A2C (aka Vanilla A2C). n-step A2C is developed to update more frequently than Monte Carlo A2C, which has to wait for the whole episode to end. n-step A2C computes and stores the advantages, log probs, and values for n steps (or until the trajectory ends), and refreshes them after updating the Actor and Critic. The model wasn't training at all. Printed out multiple statistics such as values, returns, entropies for debugging. Found out the gradient was too big and applied gradient clipping. Also added normalization layers. Still couldn’t get it working. |
 
+| **Apr 19, 2025** | `A2C_bipedal.ipynb`                    | Tried using RL Baselines3 Zoo's hyperparameters and implemented Generalized Advantage Estimation (GAE). Still wouldn’t work. |
 
+| **Apr 20, 2025** | `A2C_cartpole.ipynb`, `RL_A2C.ipynb`   | Came back to CartPole to try implementing n-step A2C in a simpler environment. Downloaded the following Jupyter Notebook and succeeded in training ([source](https://github.com/ayeenp/deep-rl-a2c-cartpole/blob/main/RL_A2C.ipynb)). Made sure that the structure of the MLP and hyperparameters were not the problem. |
 
+| **Apr 24–May 1, 2025** | Vacation!! | Visited Tokyo to meet up with T@B friends, came back to Seoul and celebrated my brother's birthday. |
+
+| **May 3, 2025** | `A2C_cartpole.ipynb`, `RL_A2C.ipynb`  ✅ | Thought n-step was complicating the problem and started from the beginning by implementing Monte Carlo A2C. Finally got it to work. Then, tried n-step A2C again. Using a bigger n than max_step makes n-step A2C behave equally to Monte Carlo A2C. However, my model did not train correctly when using the n-step methods instead. Though, this helped my pinpoint that the issue is in the method compute_n_step_returns and fount the critical bug: forgetting to mask the bootstrapped value with (1 - done) caused the agent to learn from terminal states incorrectly. After fixing this, got both n-step and Monte Carlo A2C working. |
