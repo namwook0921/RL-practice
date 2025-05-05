@@ -32,7 +32,7 @@ For the fundamental theory, I mainly referenced Berkeley's CS 285 lectures by Pr
 
 ## Timeline & Progress
 
-| Date         | Project / Notebook                     | Description & Key Learnings |
+| Date             | Project / Notebook                  | Description & Key Learnings |
 |--------------|----------------------------------------|-----------------------------|
 | **Apr 14, 2025** | `gymnasium_tutorial/`  ✅              | An introduction to the Gymnasium environment following the tutorial from https://gymnasium.farama.org/ |
 | **Apr 14, 2025** | `sarsa_qlearn_comparison.ipynb`  ✅    | Implemented SARSA and Q-learning, the most fundamental on-policy and off-policy algorithms. |
