@@ -50,7 +50,7 @@ For the fundamental theory, I mainly referenced Berkeley's CS 285 lectures by Pr
 
 | **Apr 19, 2025** | `A2C_bipedal.ipynb` 🛠️                 | Tried using RL Baselines3 Zoo's hyperparameters and implemented Generalized Advantage Estimation (GAE). Still wouldn’t work. |
 
-| **Apr 20, 2025** | `A2C_cartpole.ipynb`, `RL_A2C.ipynb`   | Came back to CartPole to try implementing n-step A2C in a simpler environment. Downloaded the following Jupyter Notebook and succeeded in training ([source](https://github.com/ayeenp/deep-rl-a2c-cartpole/blob/main/RL_A2C.ipynb)). Made sure that the structure of the MLP and hyperparameters were not the problem. |
+| **Apr 20, 2025** | `A2C_cartpole.ipynb`, `RL_A2C.ipynb` 🛠️ | Came back to CartPole to try implementing n-step A2C in a simpler environment. Downloaded the following Jupyter Notebook and succeeded in training ([source](https://github.com/ayeenp/deep-rl-a2c-cartpole/blob/main/RL_A2C.ipynb)). Made sure that the structure of the MLP and hyperparameters were not the problem. |
 
 | **Apr 24–May 1, 2025** | Vacation!! | Visited Tokyo to meet up with T@B friends, came back to Seoul and celebrated my brother's birthday. |
 
