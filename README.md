@@ -8,7 +8,7 @@ This repository documents my journey of studying reinforcement learning (RL) whi
 
 The primary goal of this project is to gain in-depth knowledge of RL by implementing various algorithms from scratch, debugging through trial and error, and adding skills to enhance the performances.  
 The secondary goal is to provide a simple, yet intuitive path to study RL from scratch for any beginners like me, and to share & maintain the insights I have gained during the project.  
-The last goal is to motivate myself by recording the progress of my study. I am mainly using the late-night hours from 22:00–24:00, and it is often tough to devote myself to studying after a fatiguing day of work. However, by keeping records and being able to look back at the progress I made, it helps me take steady steps toward mastering RL.
+The last goal is to motivate myself by recording the progress of my study. I am mainly using the late-night hours from 22:00–24:00, and it is often tough to devote myself to studying after a fatiguing day of work. By recording my progress here and looking back at the progress I made, it helps me take steady steps toward mastering RL.
 
 ---
 
@@ -21,7 +21,8 @@ The last goal is to motivate myself by recording the progress of my study. I am 
 - Dueling DQN
 - A2C (Monte Carlo and n-step variants)
 - Generalized Advantage Estimation (GAE)
-
+- Vectorized Environments
+  
 ---
 
 ## References
@@ -49,3 +50,7 @@ For the fundamental theory, I mainly referenced Berkeley's CS 285 lectures by Pr
 | **May 6, 2025** | `A2C_lunar_lander.ipynb` 🛠️ | Made a new file to treat Lunar Lander in both discrete and continuous. For discrete Lunar Lander, I expected it to train well when using the same code for cartpole. However, it didn't, and printed out multiple parameters to find the problem. First, the gradients were too big since the calculated returns were all very large due to the crash (-100 reward). Therefore, implemented advantage normalization. However, this caused a problem of vanishing actor_loss since log_prob is pretty much uniform when initialized, and when taken dot product with the normlized advantage vector, the result should mathematically converge to 0. Lastly, tried normalizing n-step return instead of advantage. Showed it is training, but not efficiently. |
 | **May 12, 2025** | `A2C_cartpole_vec_env.ipynb` 🛠️ | Practicing/analyzing usage of vectorized environments for faster training. Used A2C_cartpole file to execute. Found some interesting results. First, using multiple environments (8) took much more time than a single environment even when training same episodes on each environment. 00:30 to train 1000 episodes in single env, 12:31 to train 1000 episodes in 8 envs. Second, when same number of total episodes (num_envs * episodes) were explored, multiple environments showed much better reward. When 1000 episodes trained in single env, average reward was 119.2 and when 125 episodes were trained in 8 environments, average reward was 500. When only 10 episodes were trained each in 8 environments, average reward was 119.3.| 
 | **May 14, 2025** | `A2C_cartpole_vec_env.ipynb` 🛠️ | Found bug that every single episode (even the first training episodes) explored max_steps for vectorized environments which accounted for longer training time, better result. It was because np.all(done) always returned False since done was not permanently True after state being terminated. Resolved using done_mask vector. | 
+| **May 15, 2025** | `A2C_cartpole_vec_env.ipynb` ✅ | Successfully trained using multiple environments. Multiple environments had both significant time/reward advantage over single environment. Compared async/sync vectorization methods and async trained better, sync trained faster. This was unexpected, and more analyzed in the file's comments. | 
+| **May 16, 2025** | `A2C_lunar_lander.ipynb` 🛠️ | Found this repo -- https://github.com/nikhilbarhate99/Actor-Critic-PyTorch/blob/master/train.py. The algorithm was mostly alike except some futile differences, except the way loss was calculated. The refernce model took a stepwise sum of logprob * advantage, and my model took the mean of the whole batch. Researched difference between sum vs. mean reduction. Besides magnitude of gradient, not much varies. | 
+| **May 17, 2025** | `A2C_lunar_lander.ipynb` 🛠️ | Found critical bug in my calculate_rewards method. The dimensions of the tensors logprobs, state_values, and rewards were all different --0 [n,1], [n, 1, 1], [n]. This led to a very weird way of broadcasting and messed up the loss completely. Learned two lessons - be careful with dimensions of tensors, don't ignore the warnings the cell outputs are telling you. | 
+| **May 18, 2025** | `A2C_lunar_lander.ipynb` ✅ | Ran the lunar_lander code after fixing the critical bugs. | 
