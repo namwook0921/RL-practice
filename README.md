@@ -1,6 +1,6 @@
 # RL-practice
 
-This repository documents my journey of studying reinforcement learning (RL) while serving in the military. Due to many limitations including available software and security issues, I use solely Google Collaboratory as the platform and Python as the language. I use PyTorch and Gymnasium as libraries for the model and game environment, respectively.
+This repository documents my journey of studying reinforcement learning (RL) while serving in the military. Due to many limitations including available software and security issues, I use solely Google Collaboratory as the platform and Python as the language. PyTorch and Gymnasium are the libraries for the model and game environment, respectively. I welcome all forms of collaboration and contributions—feel free to open a pull request, commit improvements, or share your insights!
 
 ---
 
@@ -22,6 +22,7 @@ The last goal is to motivate myself by recording the progress of my study. I am 
 - A2C (Monte Carlo and n-step variants)
 - Generalized Advantage Estimation (GAE)
 - Vectorized Environments
+- Proximal Policy Optimization (PPO)
   
 ---
 
@@ -55,3 +56,5 @@ For the fundamental theory, I mainly referenced Berkeley's CS 285 lectures by Pr
 | **May 17, 2025** | `A2C_lunar_lander.ipynb` 🛠️ | Found critical bug in my calculate_rewards method. The dimensions of the tensors logprobs, state_values, and rewards were all different --0 [n,1], [n, 1, 1], [n]. This led to a very weird way of broadcasting and messed up the loss completely. Learned two lessons - be careful with dimensions of tensors, don't ignore the warnings the cell outputs are telling you. | 
 | **May 18, 2025** | `A2C_lunar_lander.ipynb` 'A2C_bipedal.ipynb' 🛠️ | Ran the lunar_lander code after fixing the critical bugs. Took hour and half training sync & async, then found out I was updating every n steps but calculating returns in monte carlo. Will try a gain tomorrow with MC first. Also, polished code for continuous environments in 'A2C_bipedal.ipynb. | 
 | **May 21, 2025** | `A2C_lunar_lander.ipynb` 'A2C_bipedal.ipynb' 🛠️ | Succeeded in training discrete lunar lander. Was not converging in 500+ episodes, learning rate was too high (0.02) since the reference model was training in a single environment while I was using 8. Also, added decaying learning rate. For continuous lunar lander, same lr used for discrete was too large and studied the theoretical background for why. Tried smaller learning rates and gradient norm clipping but wasn't working perfectly. Will try different methods next time, and will implement n-step return for both. | 
+| **May 22, 2025** | `A2C_lunar_lander.ipynb`  ✅ | Implemented n-step learning for A2C lunar lander. Could see that it is training, but wasn't perfect. Will need some hyperparamter tunig, but the implementation is complete for now. Once done with other algorithms, will come back to tune hyperparameters then will compare each algorithms' performances in lunar lander(or other games). | 
+| **May 24, 2025** | `PPO_lunar_lander.ipynb`  🛠️ | The PPO algorithm shares a similar structure to the A2C algorithm but differs in how it calculates policy loss. When I trained A2C in lunar lander, it often showed dramatic updates and didn't converge well even in taking large steps. PPO prevents this by clipping the value of P_{old theta}(state)/P_{new theta}(state). Therefore, it is more stable than A2C and will lead to better convergence. Will implement tomorrow and compare performance. | 
