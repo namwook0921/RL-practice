@@ -31,14 +31,29 @@ The last goal is to motivate myself by recording the progress of my study. I am 
 Below are some of the preliminary results comparing different families of algorithms on selected environments.  
 (Click the images to enlarge — these are tentative visualizations.)
 
-### A2C vs PPO (LunarLander-v3)
-![A2C vs PPO](A2C_vs_PPO.png)
-
 ### Tabular Methods on FrozenLake-v1
-![SARSA vs Q-Learning on FrozenLake](SARSA_Q-Learning_FrozenLake-v1.png)
+![SARSA vs Q-Learning on FrozenLake](results/SARSA_vs_Q-Learning_FrozenLake-v1.png)
+
+- Both **SARSA (on-policy)** and **Q-Learning (off-policy)** converge quickly to the optimal policy.  
+- Returns plateau close to **1.0** which is the solving rate of FrozenLake.  
+- The curves almost overlap — expected in this deterministic, simple environment where the on/off-policy distinction matters little.  
+- **Takeaway:** For simple tabular tasks, SARSA and Q-Learning learn similarly fast and reach near-optimal performance.
+
 
 ### DQN Family Variants (CartPole-v1)
-![DQN Family](DQN_family.png)
+![DQN Family](results/DQN_family_CartPole-v1.png)
+
+- **DQN** steadily learns to solve CartPole, reaching ~200 returns.  
+- **Double DQN (DDQN)** underperforms in this setup, likely due to hyperparameter sensitivity and more conservative value updates.  
+- **Dueling DQN** shows rapid early improvement and strong peak performance, but suffers from instability and eventual collapse.  
+- **Takeaway:** Architectural extensions (Dueling) can speed up learning, but require careful tuning. Vanilla DQN remains a strong baseline.
+
+### A2C vs PPO (LunarLander-v3)
+![A2C vs PPO](results/A2C_vs_PPO_LunarLander-v3.png)
+
+- **PPO** outperforms **A2C**: it learns faster, achieves higher returns, and stabilizes around +200 which is considered solving Lunar Lander.  
+- **A2C** improves steadily but plateaus lower (~+150), showing higher variance and weaker stability.  
+- **Takeaway:** On complex environments, PPO’s clipped objective and batch optimization give it a clear advantage over A2C.
 
 ---
 
