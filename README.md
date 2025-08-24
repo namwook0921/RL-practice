@@ -26,6 +26,22 @@ The last goal is to motivate myself by recording the progress of my study. I am 
   
 ---
 
+## Results
+
+Below are some of the preliminary results comparing different families of algorithms on selected environments.  
+(Click the images to enlarge — these are tentative visualizations.)
+
+### A2C vs PPO (LunarLander-v3)
+![A2C vs PPO](A2C_vs_PPO.png)
+
+### Tabular Methods on FrozenLake-v1
+![SARSA vs Q-Learning on FrozenLake](SARSA_Q-Learning_FrozenLake-v1.png)
+
+### DQN Family Variants (CartPole-v1)
+![DQN Family](DQN_family.png)
+
+---
+
 ## References
 
 For the fundamental theory, I mainly referenced Berkeley's CS 285 lectures by Professor Sergey Levine. For implementing the code, I gained help from multiple sources including GitHub repos, generative AI, Stack Overflow, etc.
